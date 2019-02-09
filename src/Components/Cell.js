@@ -6,8 +6,12 @@ export default class Cell extends Component {
   };
   render() {
     return (
-      <td onClick={this.handleClick} id={this.props.cellID} className="col">
-        {this.props.text}
+      <td
+        onClick={this.handleClick}
+        id={this.props.cellID}
+        className={`col ${this.props.text}`}
+      >
+        {/* {this.props.text} */}
       </td>
     );
   }

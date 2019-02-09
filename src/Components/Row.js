@@ -16,6 +16,7 @@ export default class Row extends Component {
           onCellClick={this.props.onCellClick}
           rowIndex={this.props.rowIndex}
           cellID={index}
+          key={index}
         />
       );
     });

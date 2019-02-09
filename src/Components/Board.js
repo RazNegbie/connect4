@@ -7,7 +7,7 @@ class Board extends React.Component {
     this.state = {
       board: this.initBoard(),
       stepsCount: 0,
-      currentPlayer: "player1",
+      currentPlayer: "Greeny",
       finishGame: false
     };
   }
@@ -16,7 +16,7 @@ class Board extends React.Component {
     this.setState({
       board: this.initBoard(),
       stepsCount: 0,
-      currentPlayer: "player1",
+      currentPlayer: "Greeny",
       finishGame: false
     });
   };
@@ -49,7 +49,7 @@ class Board extends React.Component {
     }
   };
   checkCols = board => {
-    for (let rowIndex = 5; rowIndex >= 0; rowIndex--) {
+    for (let rowIndex = 5; rowIndex >= 3; rowIndex--) {
       for (let colIndex = 0; colIndex < 7; colIndex++) {
         if (board[rowIndex][colIndex]) {
           if (
@@ -102,9 +102,9 @@ class Board extends React.Component {
     this.setState({ stepsCount: stepsCount });
   };
   changeCurrentPlayer = () => {
-    this.state.currentPlayer === "player1"
-      ? this.setState({ currentPlayer: "player2" })
-      : this.setState({ currentPlayer: "player1" });
+    this.state.currentPlayer === "Greeny"
+      ? this.setState({ currentPlayer: "Pinky" })
+      : this.setState({ currentPlayer: "Greeny" });
   };
   onCellClick = colID => {
     let board = this.state.board;
@@ -124,7 +124,12 @@ class Board extends React.Component {
   renderRows = () => {
     return this.state.board.map((row, index) => {
       return (
-        <Row onCellClick={this.onCellClick} cells={row} rowIndex={index} />
+        <Row
+          onCellClick={this.onCellClick}
+          cells={row}
+          rowIndex={index}
+          key={index}
+        />
       );
     });
   };
@@ -142,20 +147,35 @@ class Board extends React.Component {
   };
 
   render() {
-    if (this.state.finishGame) {
-      return <FinishScreen onClick={this.initGame} />;
-    } else {
-      return (
-        <div>
-          <h1>{this.state.currentPlayer}</h1>
-          <h1>{this.state.stepsCount}</h1>
-
-          <table>
-            <tbody>{this.renderRows()}</tbody>
-          </table>
-        </div>
-      );
-    }
+    return (
+      <center className="board">
+        {this.state.finishGame ? (
+          <FinishScreen
+            currentPlayer={this.state.currentPlayer}
+            onClick={this.initGame}
+          />
+        ) : (
+          <div>
+            <div className="mainHeadLine">Welcome to:</div>
+            <div className="gameName"> connect-4</div>
+            <table>
+              <tbody>{this.renderRows()}</tbody>
+            </table>
+            <div className="textBelow">
+              <p className="p1Text">Now Playing: </p>
+              {this.state.currentPlayer === "Greeny" ? (
+                <p className="Greeny"> Greeny</p>
+              ) : (
+                <p className="Pinky">Pinky</p>
+              )}
+            </div>
+            <p className="p2Text">
+              Have been played already: {this.state.stepsCount} steps
+            </p>
+          </div>
+        )}
+      </center>
+    );
   }
 }
 

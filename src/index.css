@@ -1,25 +1,13 @@
 .col {
-  width: 100px;
-  height: 100px;
-  background-color: #50c8ff;
-  color: blue;
-}
-
-.col1 {
-  width: 100px;
-  height: 100px;
-  background-color: red !important;
-}
-
-.col2 {
-  width: 100px;
-  height: 100px;
-  background-color: yellow !important;
+  width: 80px;
+  height: 80px;
+  background-color: #6d6666;
+  border-radius: 50px;
 }
 
 .board {
   padding-top: 50px;
-  background-color: blanchedalmond;
+  background-color: #2b2525;
 }
 
 .p1Text {
@@ -31,72 +19,104 @@
 .p2Text {
   padding-right: 430px;
   font-size: 30px;
-  margin-left: 140px;
+  margin-left: 290px;
   font-weight: bold;
-}
-
-.Greeny {
-  color: green;
-  font-size: 60px;
-  margin-left: 20px;
-  background-color: green;
-}
-
-.Pinky {
-  color: pink;
-  font-size: 60px;
-  margin-left: 20px;
-  background-color: pink;
-}
-
-.mainHeadLine {
-  color: red;
-  margin-bottom: 20px;
-  font-size: 100px;
+  margin-top: -20px;
+  color: #613939;
 }
 
 .textBelow {
   display: flex;
   align-items: center;
-  margin-left: 740px;
+  margin-left: 720px;
   height: 100px;
+  color: #613939;
+}
+
+.Greeny {
+  font-size: 60px;
+  margin-left: 20px;
+  background-color: green;
+  border-radius: 50px;
+  border-color: #6d6666;
+}
+
+.Pinky {
+  font-size: 60px;
+  margin-left: 20px;
+  background-color: pink;
+  border-radius: 50px;
+}
+
+.mainHeadLine {
+  color: #793838;
+  margin-bottom: 20px;
+  font-size: 80px;
+}
+
+.gameName {
+  font-size: 50px;
+  text-shadow: -7px 4px black;
+  color: #bb6a42;
 }
 
 .textWinner {
   display: flex;
   align-items: center;
   height: 100px;
-  font-size: 50px;
-}
-
-.gameName {
-  font-size: 70px;
+  font-size: 60px;
+  color: white;
 }
 
 .startOverButton {
   color: aquamarine;
   font-size: 100px;
-  background-color: darkgrey;
+  background-color: #292727;
   border-radius: 15px 50px;
   margin-top: 30px;
 }
 
-.finishScreen {
-  height: 1220px;
-  margin-top: -60px;
-  background-color: burlywood;
+.startAgainButton {
+  color: #793838;
+  font-size: 70px;
+  background-color: darkgrey;
+  margin-top: 30px;
 }
 
-html,
-body {
-  height: 100%;
-  min-height: 100%;
+.finishScreen {
+  height: 960px;
+  margin-top: -60px;
+  background-color: #10131f;
 }
-svg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
+
+.greenyFinishScreen {
+  color: green;
+  margin-left: 20px;
+  font-size: 30px;
+}
+.pinkyFinishScreen {
+  color: pink;
+  margin-left: 20px;
+  font-size: 30px;
+}
+
+.greenyFinishScreen1 {
+  color: green;
+  font-size: 150px;
+  margin-left: 340px;
+  margin-top: 800px;
+}
+
+.pinkyFinishScreen1 {
+  color: pink;
+  font-size: 150px;
+  margin-left: 340px;
+  margin-top: 800px;
+}
+
+.congratulations {
+  margin-right: 10px;
+  margin-top: 500px;
+  font-size: 50px;
+  color: white;
 }

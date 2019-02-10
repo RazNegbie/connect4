@@ -8,13 +8,14 @@ export default class FinishScreen extends Component {
           start over
         </button>
         <div className="textWinner">
-          The winner is:{" "}
+          The winner is:{"  "}
           {this.props.currentPlayer === "Greeny" ? (
-            <p className="pinky"> Pinky :)</p>
+            <p className="pinkyFinishScreen1"> Pinky :)</p>
           ) : (
-            <p className="greeny"> Greeny :)</p>
+            <p className="greenyFinishScreen1"> Greeny :)</p>
           )}
         </div>
+        <p className="congratulations"> Congratulations!</p>
       </div>
     );
   }

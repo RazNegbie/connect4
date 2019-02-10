@@ -157,21 +157,25 @@ class Board extends React.Component {
         ) : (
           <div>
             <div className="mainHeadLine">Welcome to:</div>
-            <div className="gameName"> connect-4</div>
+            <div className="gameName"> Connect-4</div>
+
             <table>
               <tbody>{this.renderRows()}</tbody>
             </table>
             <div className="textBelow">
               <p className="p1Text">Now Playing: </p>
               {this.state.currentPlayer === "Greeny" ? (
-                <p className="Greeny"> Greeny</p>
+                <p className="greenyFinishScreen"> Greeny</p>
               ) : (
-                <p className="Pinky">Pinky</p>
+                <p className="pinkyFinishScreen"> Pinky</p>
               )}
             </div>
             <p className="p2Text">
               Have been played already: {this.state.stepsCount} steps
             </p>
+            <div className="startAgainButton" onClick={this.initGame}>
+              Start Again
+            </div>
           </div>
         )}
       </center>

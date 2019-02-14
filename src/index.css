@@ -6,7 +6,7 @@
 }
 
 .board {
-  padding-top: 50px;
+  padding-top: 30px;
   background-color: #2b2525;
 }
 
@@ -33,7 +33,7 @@
   color: #613939;
 }
 
-.Greeny {
+.greeny {
   font-size: 60px;
   margin-left: 20px;
   background-color: green;
@@ -41,7 +41,7 @@
   border-color: #6d6666;
 }
 
-.Pinky {
+.pinky {
   font-size: 60px;
   margin-left: 20px;
   background-color: pink;
@@ -66,6 +66,7 @@
   height: 100px;
   font-size: 60px;
   color: white;
+  margin-left: 20px;
 }
 
 .startOverButton {
@@ -80,7 +81,7 @@
   color: #793838;
   font-size: 70px;
   background-color: darkgrey;
-  margin-top: 30px;
+  margin-top: 5px;
 }
 
 .finishScreen {
@@ -89,33 +90,32 @@
   background-color: #10131f;
 }
 
+.greenyTurn {
+  color: green;
+  margin-left: 20px;
+  font-size: 30px;
+}
+.pinkyTurn {
+  color: pink;
+  margin-left: 20px;
+  font-size: 30px;
+}
+
 .greenyFinishScreen {
   color: green;
-  margin-left: 20px;
-  font-size: 30px;
+  font-size: 150px;
+  margin-left: 320px;
+  margin-top: 800px;
 }
+
 .pinkyFinishScreen {
   color: pink;
-  margin-left: 20px;
-  font-size: 30px;
-}
-
-.greenyFinishScreen1 {
-  color: green;
   font-size: 150px;
-  margin-left: 340px;
+  margin-left: 360px;
   margin-top: 800px;
 }
 
-.pinkyFinishScreen1 {
-  color: pink;
-  font-size: 150px;
-  margin-left: 340px;
-  margin-top: 800px;
-}
-
-.congratulations {
-  margin-right: 10px;
+.congratulationsFinishScreen {
   margin-top: 500px;
   font-size: 50px;
   color: white;

@@ -9,13 +9,13 @@ export default class FinishScreen extends Component {
         </button>
         <div className="textWinner">
           The winner is:{"  "}
-          {this.props.currentPlayer === "Greeny" ? (
-            <p className="pinkyFinishScreen1"> Pinky :)</p>
+          {this.props.currentPlayer === "greeny" ? (
+            <p className="pinkyFinishScreen"> Pinky :)</p>
           ) : (
-            <p className="greenyFinishScreen1"> Greeny :)</p>
+            <p className="greenyFinishScreen"> Greeny :)</p>
           )}
         </div>
-        <p className="congratulations"> Congratulations!</p>
+        <p className="congratulationsFinishScreen"> Congratulations!</p>
       </div>
     );
   }

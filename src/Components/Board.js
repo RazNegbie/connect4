@@ -7,30 +7,61 @@ class Board extends React.Component {
     this.state = {
       board: this.initBoard(),
       stepsCount: 0,
-      currentPlayer: "Greeny",
-      finishGame: false
+      currentPlayer: "greeny",
+      finishGame: false,
+      history: [],
+      history2: []
     };
+
+    this.renderRows = this.renderRows.bind(this);
+    this.addStep = this.addStep.bind(this);
+    this.changeCurrentPlayer = this.changeCurrentPlayer.bind(this);
+    this.onCellClick = this.onCellClick.bind(this);
+    this.saveHistory = this.saveHistory.bind(this);
+    this.saveHistory2 = this.saveHistory2.bind(this);
+    this.backToHistory2 = this.backToHistory2.bind(this);
   }
+
+  // Initielize with null the matrix that represent the board
+
+  initBoard = () => {
+    let board = [];
+    for (let i = 0; i < 6; i++) {
+      let row = [];
+      for (let j = 0; j < 7; j++) {
+        row.push(null);
+      }
+
+      board.push(row);
+    }
+    return board;
+  };
+
+  // Create the rows on the board with their cells
+
+  renderRows = () => {
+    return this.state.board.map((row, index) => {
+      return (
+        <Row
+          onCellClick={this.onCellClick}
+          cells={row}
+          rowIndex={index}
+          key={index}
+        />
+      );
+    });
+  };
+
+  //Initielize the beginning state of the game
 
   initGame = () => {
     this.setState({
       board: this.initBoard(),
       stepsCount: 0,
-      currentPlayer: "Greeny",
-      finishGame: false
+      currentPlayer: "greeny",
+      finishGame: false,
+      history2: []
     });
-  };
-  finishGame = () => {
-    this.setState({ finishGame: true });
-  };
-
-  checkWinner = board => {
-    return (
-      this.checkRows(board) ||
-      this.checkCols(board) ||
-      this.checkRightDiagonal(board) ||
-      this.checkLeftDiagonal(board)
-    );
   };
 
   checkRows = board => {
@@ -96,54 +127,109 @@ class Board extends React.Component {
     }
   };
 
+  //Checks whether one of the players completed a sequence of four tools in all variations
+
+  checkWinner = board => {
+    return (
+      this.checkRows(board) ||
+      this.checkCols(board) ||
+      this.checkRightDiagonal(board) ||
+      this.checkLeftDiagonal(board)
+    );
+  };
+
+  //Edit count the amount of steps that have played already
+
   addStep = () => {
     let stepsCount = this.state.stepsCount;
     stepsCount++;
     this.setState({ stepsCount: stepsCount });
-  };
-  changeCurrentPlayer = () => {
-    this.state.currentPlayer === "Greeny"
-      ? this.setState({ currentPlayer: "Pinky" })
-      : this.setState({ currentPlayer: "Greeny" });
-  };
-  onCellClick = colID => {
-    let board = this.state.board;
-    let isFound = false;
-    for (let i = 5; i >= 0 && !isFound; i--) {
-      if (board[i][colID] === null) {
-        isFound = true;
-        board[i][colID] = this.state.currentPlayer;
-        this.checkWinner(board);
-        this.addStep();
-        this.changeCurrentPlayer();
-      }
-    }
-
-    this.setState({ board: board });
-  };
-  renderRows = () => {
-    return this.state.board.map((row, index) => {
-      return (
-        <Row
-          onCellClick={this.onCellClick}
-          cells={row}
-          rowIndex={index}
-          key={index}
-        />
+    if (stepsCount === 42) {
+      alert(
+        "It's a tie! Please press 'Try Again' button in order to start a new game"
       );
+    }
+  };
+
+  //Check who is the current player and change the player in accordance
+
+  changeCurrentPlayer = () => {
+    this.state.currentPlayer === "greeny"
+      ? this.setState({ currentPlayer: "pinky" })
+      : this.setState({ currentPlayer: "greeny" });
+  };
+
+  saveHistory2 = (rowId, colId) => {
+    this.setState({
+      history2: [...this.state.history2, { rowId: rowId, colId: colId }]
     });
   };
-  initBoard = () => {
-    let board = [];
-    for (let i = 0; i < 6; i++) {
-      let row = [];
-      for (let j = 0; j < 7; j++) {
-        row.push(null);
-      }
 
-      board.push(row);
+  backToHistory2 = index => {
+    let historyCopy = this.state.history2.slice();
+    let boardCopy = this.state.board.slice();
+
+    for (let i = 0; i < this.state.stepsCount - index; i++) {
+      let lastMove = historyCopy.pop();
+      boardCopy[lastMove.rowId][lastMove.colId] = null;
     }
-    return board;
+
+    let updatedCurrentPlayer = this.state.currentPlayer;
+    if (this.currentPlayer === "pinky" && index % 2 !== 0) {
+      updatedCurrentPlayer = "pinky";
+    } else if (index % 2 === 0) {
+      updatedCurrentPlayer = "greeny";
+    } else {
+      updatedCurrentPlayer = "pinky";
+    }
+
+    this.setState({
+      board: boardCopy,
+      history2: historyCopy,
+      stepsCount: index,
+      currentPlayer: updatedCurrentPlayer
+    });
+  };
+
+  //Responsible to the process that happens when a player clicks on a cell
+  onCellClick = colID => {
+    let boardCopy = this.state.board.slice();
+    let isFound = false;
+    for (let i = 5; i >= 0 && !isFound; i--) {
+      if (boardCopy[i][colID] === null) {
+        isFound = true;
+        boardCopy[i][colID] = this.state.currentPlayer;
+        this.setState({
+          board: boardCopy
+        });
+        this.checkWinner(boardCopy);
+        this.addStep();
+        this.changeCurrentPlayer();
+        this.saveHistory(boardCopy);
+        this.saveHistory2(i, colID);
+      }
+    }
+  };
+
+  saveHistory = board => {
+    var newStateArray = board.slice();
+
+    this.setState({
+      history: [...this.state.history, newStateArray]
+    });
+  };
+
+  backToHitory = index => {
+    this.setState({
+      board: this.state.history[index]
+    });
+  };
+
+  // Check if there is a winner. If there is, changing the status of to game in order to
+  // pass to the finish screen
+
+  finishGame = () => {
+    this.setState({ finishGame: true });
   };
 
   render() {
@@ -162,12 +248,26 @@ class Board extends React.Component {
             <table>
               <tbody>{this.renderRows()}</tbody>
             </table>
+            {/* <button onClick={() => this.backToHistory2()}> היסטוריה </button> */}
+            {this.state.history2.length !== 0 &&
+              this.state.history2.map((currentHistory, index) => {
+                if (index !== 0) {
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => this.backToHistory2(index)}
+                    >
+                      back to step: {index}
+                    </button>
+                  );
+                }
+              })}
             <div className="textBelow">
               <p className="p1Text">Now Playing: </p>
-              {this.state.currentPlayer === "Greeny" ? (
-                <p className="greenyFinishScreen"> Greeny</p>
+              {this.state.currentPlayer === "greeny" ? (
+                <p className="greenyTurn"> Greeny</p>
               ) : (
-                <p className="pinkyFinishScreen"> Pinky</p>
+                <p className="pinkyTurn "> Pinky</p>
               )}
             </div>
             <p className="p2Text">

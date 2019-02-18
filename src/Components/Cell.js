@@ -10,9 +10,7 @@ export default class Cell extends Component {
         onClick={this.handleClick}
         id={this.props.cellID}
         className={`col ${this.props.text}`}
-      >
-        {/* {this.props.text} */}
-      </td>
+      />
     );
   }
 }
